@@ -7,7 +7,7 @@ pros::Distance distance_sensor(18);
 //bool that holds the state of the limiter
 extern bool canLimit;
 //define the alliance color to sort the correct ball color.
-#define RED
+#define BLUE
 
 //tuning variables for the different robots.
 static int32_t delayEject = 850;
@@ -64,6 +64,10 @@ void sort()
 	vSensor.set_led_pwm(100);
 	while(true)
 	{
+		if(canLimit)
+		{
+			controller.rumble(".");
+		}
 		if(disableBottom && disableTop)
 		{
 			topSystem.move(0);
@@ -108,7 +112,7 @@ void sort()
 		}
 		else
 		{
-			if(distance_sensor.get() < 50 && canLimit)
+			if(distance_sensor.get() < 35 && canLimit)
 			{
 				bottomSystem.move_velocity(0);
 				topSystem.move_velocity(0);
